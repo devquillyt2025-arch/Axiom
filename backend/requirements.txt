@@ -1,0 +1,14 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27
+# Neon Postgres driver + connection pool (core/store.py)
+psycopg[binary]>=3.2
+psycopg-pool>=3.2
+pydantic>=2.8
+pydantic-settings>=2.4
+python-dotenv>=1.0
+numpy>=2.0
+pandas>=2.2
+anthropic>=1.0
+# Upstox official SDK — used only for the protobuf-decoded WebSocket market feed (bot/feed.py)
+upstox-python-sdk>=2.0

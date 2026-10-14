@@ -1,0 +1,5 @@
+# Let git normalise text files, but keep scripts that bash must run as LF even on Windows checkouts
+# (a CRLF start.sh fails with "$'\r': command not found" in Git Bash).
+* text=auto
+*.sh text eol=lf
+Procfile text eol=lf

@@ -1,0 +1,24 @@
+# secrets
+.env
+.env.*
+!.env.example
+frontend/.env.local
+
+# python
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# runtime state: Upstox token, local DB, bot state, candle cache, logs
+backend/data/
+
+# node / next
+node_modules/
+.next/
+*.tsbuildinfo
+next-env.d.ts
+
+# misc
+*.log
+.DS_Store

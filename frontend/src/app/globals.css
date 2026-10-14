@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Axiom is dark-only (OLED-friendly #0A0A0A base). Tokens are HSL channels so Tailwind
+   can apply opacity modifiers: bg-card/60, border-border/50, … */
+@layer base {
+  :root {
+    color-scheme: dark;
+    --background: 0 0% 3.9%; /* #0A0A0A */
+    --foreground: 240 5% 96%; /* #F4F4F5 */
+    --card: 240 6% 7%; /* #111113 */
+    --card-foreground: 240 5% 96%;
+    --popover: 240 6% 9%;
+    --popover-foreground: 240 5% 96%;
+    --primary: 221 83% 53%; /* #2563EB — white text 5.2:1 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 13%;
+    --secondary-foreground: 240 5% 90%;
+    --muted: 240 5% 11%;
+    --muted-foreground: 240 5% 65%; /* #A1A1AA — 7.8:1 on base */
+    --accent: 240 5% 15%;
+    --accent-foreground: 240 5% 96%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 5% 17%;
+    --input: 240 5% 22%;
+    --ring: 217 91% 65%;
+    --profit: 158 64% 52%; /* #34D399 */
+    --loss: 0 91% 71%; /* #F87171 */
+    --warn: 43 96% 56%; /* #FBBF24 */
+    --info: 213 94% 68%; /* #60A5FA */
+    --radius: 0.625rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* Always reserve the scrollbar's space. Otherwise every tab taller than the window gets a scrollbar and
+       every shorter one doesn't, and the whole page jumps sideways by half its width each time you switch. */
+    overflow-y: scroll;
+  }
+  body {
+    @apply bg-background font-sans text-sm text-foreground antialiased;
+    min-height: 100dvh;
+  }
+  button,
+  [role="button"],
+  a {
+    touch-action: manipulation;
+  }
+  ::selection {
+    background: hsl(var(--primary) / 0.4);
+  }
+  /* slim dark scrollbars for the data tables */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* tabular monospaced figures for every price / P&L so columns don't jitter */
+  .num {
+    @apply font-mono tabular-nums;
+    font-feature-settings: "tnum" 1, "zero" 0;
+  }
+  .page-title {
+    @apply text-xl font-semibold tracking-tight md:text-2xl;
+  }
+  .label-xs {
+    @apply text-xs font-medium uppercase tracking-wider text-muted-foreground;
+  }
+}
+
+/* lightweight-charts mounts a canvas; make sure it never causes horizontal overflow */
+.chart-host {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Radix locks page scroll while a dropdown/dialog is open and pads the page by the scrollbar's width, assuming the
+   scrollbar disappears. Ours never does (html is overflow-y: scroll), so that padding would shove the page sideways.
+   More specific than the library's runtime-injected rule, so it wins the !important tie. */
+html body[data-scroll-locked] {
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+}

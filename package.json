@@ -1,0 +1,13 @@
+{
+  "name": "axiom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Axiom — algorithmic trading desk for Upstox (Next.js frontend + FastAPI backend)",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "node scripts/dev.mjs",
+    "start": "node scripts/dev.mjs --prod",
+    "test": "node scripts/test.mjs"
+  },
+  "engines": { "node": ">=18.17" }
+}
